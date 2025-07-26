@@ -1,0 +1,50 @@
+using System;
+using System.Data;
+using System.Collections.Generic;
+
+public class PROBLEM15
+{
+    public static void Main(string[] args)
+    {
+        const int size = 10;
+        int[] numbers = new int[size];
+
+        // Accept 10 integers from the user
+        Console.WriteLine("Enter 10 integers:");
+        for (int i = 0; i < size; i++)
+        {
+            Console.Write($"Element {i + 1}: ");
+            while (!int.TryParse(Console.ReadLine(), out numbers[i]))
+            {
+                Console.WriteLine("Invalid input. Please enter a valid integer.");
+                Console.Write($"Element {i + 1}: ");
+            }
+        }
+
+        // Accept the formula string
+        Console.Write("Enter a formula (use 'x' as the variable, e.g., (2*x + 3) % 5): ");
+        string formula = Console.ReadLine();
+
+        // Evaluate the expression for each number
+        double[] evaluatedNumbers = new double[size];
+        for (int i = 0; i < size; i++)
+        {
+            evaluatedNumbers[i] = EvaluateExpression(formula, numbers[i]);
+        }
+
+        // Output the original and evaluated arrays
+        Console.WriteLine("\nOriginal Array: " + string.Join(", ", numbers));
+        Console.WriteLine("Evaluated Array: " + string.Join(", ", evaluatedNumbers));
+    }
+
+    private static double EvaluateExpression(string formula, int x)
+    {
+        // Replace 'x' in the formula with the actual value
+        string expression = formula.Replace("x", x.ToString());
+
+        // Use DataTable to evaluate the expression safely
+        var dataTable = new DataTable();
+        var result = dataTable.Compute(expression, string.Empty);
+        return Convert.ToDouble(result);
+    }
+}
