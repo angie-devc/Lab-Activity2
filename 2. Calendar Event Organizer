@@ -1,0 +1,61 @@
+using System;
+
+public class Problem2
+{
+    public static void Main(string[] args)
+    {
+            string[] eNames = new string[5];
+            DateTime[] eDates = new DateTime[5];
+
+            for (int i = 0; i < 5; i++)
+            {
+                Console.Write("Enter event name: "); 
+                eNames[i] = Console.ReadLine();
+
+                Console.Write("Enter event date (MM/DD/YYYY): "); 
+                DateTime date;
+                while (!DateTime.TryParse(Console.ReadLine(), out date))
+                {
+                    Console.Write("Invalid format! Enter date (MM/DD/YYYY): "); 
+                }
+
+                bool duplicate = false;
+                for (int j = 0; j < i; j++) 
+                {
+                    if (eDates[j].Date == date.Date)
+                    {
+                        Console.WriteLine("Date already used! Enter a different date."); 
+                        i--; 
+                        duplicate = true;
+                        break;
+                    }
+                }
+                
+                if (!duplicate) 
+                    eDates[i] = date;
+            }
+
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = i + 1; j < 5; j++)
+                {
+                    if (eDates[j] < eDates[i])
+                    {
+                        DateTime tempDate = eDates[i];
+                        eDates[i] = eDates[j];
+                        eDates[j] = tempDate;
+
+                        string tempName = eNames[i];
+                        eNames[i] = eNames[j];
+                        eNames[j] = tempName;
+                    }
+                }
+            }
+            
+            Console.WriteLine("\nEvents sorted by date:");
+            for (int i = 0; i < 5; i++)
+            {
+                Console.WriteLine($"{eDates[i]:MM/dd/yyyy} - {eNames[i]}");
+            }
+    }
+}
