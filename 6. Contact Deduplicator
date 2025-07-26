@@ -1,0 +1,44 @@
+using System;
+using System.Collections.Generic;
+
+public class PROBLEM6
+{
+    public static void Main(string[] args)
+    {
+        const int minNames = 15;
+        HashSet<string> contactNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+        // Accept at least 15 names from the user
+        Console.WriteLine("Enter 15 contact names (type 'stop' to finish):");
+        while (contactNames.Count < minNames)
+        {
+            Console.Write($"Name {contactNames.Count + 1}: ");
+            string input = Console.ReadLine();
+
+            if (input.ToLower() == "stop" && contactNames.Count >= minNames)
+            {
+                break;
+            }
+
+            if (!string.IsNullOrWhiteSpace(input))
+            {
+                contactNames.Add(input);
+            }
+            else
+            {
+                Console.WriteLine("Please enter a valid name.");
+            }
+        }
+
+        // Convert the HashSet to a List and sort it
+        List<string> sortedNames = new List<string>(contactNames);
+        sortedNames.Sort(StringComparer.OrdinalIgnoreCase);
+
+        // Prints the distinct, sorted list of names
+        Console.WriteLine("\nDistinct, sorted list of contact names:");
+        foreach (var name in sortedNames)
+        {
+            Console.WriteLine(name);
+        }
+    }
+}
