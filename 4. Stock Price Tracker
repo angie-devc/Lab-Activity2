@@ -1,0 +1,45 @@
+using System;
+
+public class Problem4
+{
+    public static void Main(string[] args)
+    {
+        const int days = 7;
+        decimal[] prices = new decimal[days];
+        
+        // Accept stock prices from the user for 7 days
+        Console.WriteLine("Enter stock prices for 7 days:");
+        for (int i = 0; i < days; i++)
+        {
+            Console.Write($"Day {i + 1}: ");
+            while (!decimal.TryParse(Console.ReadLine(), out prices[i]))
+            {
+                Console.WriteLine("Invalid input. Please enter a valid decimal number.");
+                Console.Write($"Day {i + 1}: ");
+            }
+        }
+
+        // Calculate percentage gains and identify the day with the highest gain
+        decimal highestGain = 0;
+        int highestGainDay = -1;
+
+        Console.WriteLine("\nPercentage gains for each day:");
+        for (int i = 1; i < days; i++)
+        {
+            decimal gain = (prices[i] - prices[i - 1]) / prices[i - 1] * 100;
+            Console.WriteLine($"Day {i + 1}: {gain:F2}%");
+
+            if (gain > highestGain)
+            {
+                highestGain = gain;
+                highestGainDay = i + 1; // +1 to match the day number
+            }
+        }
+
+        // Print the day with the highest gain
+        if (highestGainDay != -1)
+        {
+            Console.WriteLine($"\nThe day with the highest gain is Day {highestGainDay} with a gain of {highestGain:F2}%.");
+        }
+    }
+}
