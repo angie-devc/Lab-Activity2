@@ -1,0 +1,49 @@
+using System;
+
+public class Problem1
+{
+    public static void Main(string[] args)
+    {
+            string[] isNames = new string[10]; //
+            int[] isScores = new int[10];
+
+            // Collect names and scores from the user
+            for (int i = 0; i < 10; i++)
+            {
+                Console.Write("Enter name: ");// inputs name
+                isNames[i] = Console.ReadLine(); // Read user input name
+
+                Console.Write("Enter score: "); // inputs score
+                isScores[i] = int.Parse(Console.ReadLine()); // Read user input score
+            }
+
+             // Sort the students based on score (high to low) 
+            for (int i = 0; i < 9; i++)
+            {
+                for (int j = i + 1; j < 10; j++)
+                {
+                    // If scores are equal, sort alphabetically by name (A-Z)
+                    if (isScores[j] > isScores[i] || 
+                        (isScores[j] == isScores[i] && isNames[j].CompareTo(isNames[i]) < 0))
+                    {
+                        // Swap the scores
+                        int tempScore = isScores[i];
+                        isScores[i] = isScores[j];
+                        isScores[j] = tempScore;
+
+                        // Swap the corresponding names
+                        string tempName = isNames[i];
+                        isNames[i] = isNames[j];
+                        isNames[j] = tempName;
+                    }
+                }
+            }
+
+            // Display the Top 3 students 
+            Console.WriteLine("\nTop 3 Students:");
+            for (int i = 0; i < 3; i++)
+            {
+                Console.WriteLine($"Rank {i + 1}. {isNames[i]} - {isScores[i]}");
+            }
+    }
+}
