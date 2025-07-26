@@ -1,0 +1,48 @@
+using System;
+using System.Collections.Generic;
+
+public class PROBLEM15
+{
+    public static void Main(string[] args)
+    {
+       List<int> numbers = new List<int>();
+        Console.WriteLine("Enter at least 10 integers (type 'done' to finish):");
+
+        while (true)
+        {
+            string input = Console.ReadLine();
+            if (input.ToLower() == "done" && numbers.Count >= 10)
+            {
+                break;
+            }
+
+            if (int.TryParse(input, out int number))
+            {
+                numbers.Add(number);
+            }
+            else
+            {
+                Console.WriteLine("Invalid input. Please enter a valid integer.");
+            }
+        }
+
+        Console.Write("Enter the window size (k): ");
+        int k;
+        while (!int.TryParse(Console.ReadLine(), out k) || k <= 0 || k > numbers.Count)
+        {
+            Console.WriteLine($"Invalid input. Please enter a valid integer for k (1 to {numbers.Count}).");
+            Console.Write("Enter the window size (k): ");
+        }
+
+        Console.WriteLine("\nSliding window sums:");
+        for (int i = 0; i <= numbers.Count - k; i++)
+        {
+            int windowSum = 0;
+            for (int j = 0; j < k; j++)
+            {
+                windowSum += numbers[i + j];
+            }
+            Console.WriteLine($"Window starting at index {i}: Sum = {windowSum}");
+        }
+    }
+}
