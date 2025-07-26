@@ -1,0 +1,50 @@
+using System;
+
+public class Problem5
+{
+    public static void Main(string[] args)
+    {
+         const int size = 10;
+        int[] array = new int[size];
+
+        // Accept an array of 10 integers from the user
+        Console.WriteLine("Enter 10 integers:");
+        for (int i = 0; i < size; i++)
+        {
+            Console.Write($"Element {i + 1}: ");
+            while (!int.TryParse(Console.ReadLine(), out array[i]))
+            {
+                Console.WriteLine("ERROR! Please enter a valid integer.");
+                Console.Write($"Element {i + 1}: ");
+            }
+        }
+
+        // Accept the value of k
+        Console.Write("Enter the number of positions: ");
+        int k;
+        while (!int.TryParse(Console.ReadLine(), out k))
+        {
+            Console.WriteLine("ERROR! Try Again. ");
+            Console.Write("Enter the number of positions: ");
+        }
+
+        // Limit k to a range that matches the length of the array.
+        k = k % size;
+        if (k < 0) k += size; // Handle negative shifts
+
+        // Prints the original array
+        Console.WriteLine("\nOriginal Array:");
+        Console.WriteLine(string.Join(", ", array));
+
+        // Shift the array to the right by k positions
+        int[] shiftedArray = new int[size];
+        for (int i = 0; i < size; i++)
+        {
+            shiftedArray[(i + k) % size] = array[i];
+        }
+
+        // Prints the shifted array
+        Console.WriteLine("\nShifted Array:");
+        Console.WriteLine(string.Join(", ", shiftedArray));
+    }
+}
