@@ -1,0 +1,45 @@
+using System;
+using System.Collections.Generic;
+
+public class PROBLEM7
+{
+    public static void Main(string[] args)
+    {
+       Console.Write("Enter the size of a matrix (N >= 3): ");
+        int n;
+        while (!int.TryParse(Console.ReadLine(), out n) || n < 3)
+        {
+            Console.WriteLine("Invalid input. Please enter an integer greater than or equal to 3.");
+            Console.Write("Enter the size of a matrix (N >= 3): ");
+        }
+
+        int[,] matrix = new int[n, n];
+
+        Console.WriteLine("Enter the elements of a matrix:");
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                Console.Write($"Element [{i + 1}, {j + 1}]: ");
+                while (!int.TryParse(Console.ReadLine(), out matrix[i, j]))
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid integer.");
+                    Console.Write($"Element [{i + 1}, {j + 1}]: ");
+                }
+            }
+        }
+
+        int leftToRightDiagonalSum = 0;
+        int rightToLeftDiagonalSum = 0;
+
+        for (int i = 0; i < n; i++)
+        {
+            leftToRightDiagonalSum += matrix[i, i];
+            rightToLeftDiagonalSum += matrix[i, n - 1 - i]; 
+        }
+
+        int absoluteDifference = Math.Abs(leftToRightDiagonalSum - rightToLeftDiagonalSum);
+
+        Console.WriteLine($"\nAbsolute difference of the sums of the diagonals: {absoluteDifference}");
+    }
+}
